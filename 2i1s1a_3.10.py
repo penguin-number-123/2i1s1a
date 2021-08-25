@@ -90,12 +90,15 @@ def interpert(i, j,h):
             iflst.append(i)
         else:
             if ifbool:
+                out.write(ifbool)
                 for index, i in enumerate(l):
                     if (index+1 < len(l) and index - 1 >= 0):
                          current_i = str(i)
                          current_j = str(l[index+1])
                          interpert(current_i,current_j)
-            break
+                         print("done step")
+            else:
+                break
     if i == "r" and h != "@":
         d.reverse()
     if i == "`":
