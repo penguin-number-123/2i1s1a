@@ -36,16 +36,17 @@ def interpert(i, j,h):
         else:
             a+=1
     if i == "g":
-        c = input(">>")
-        #match j:
-         #   case "c":
-                #c = input("")
-          #  case "a":
-               # a = ord(input(""))
-           # case "b":
-              #  b = ord(input(""))
-            #case "d":
-             #   d.append(input(""))
+        checkset = {"a","b","c","d"}
+        if  j == "c":
+            c = input(">>")
+        if j == "a":
+            a = ord(input(">>"))
+        if j == "b":
+            b = ord(input(">>"))
+        if j == "d":
+            d.append(input(">>"))
+        if j not in checkset:
+            c = input(">>")
     if i == "p":
         if j == "a" or j == "b" or j == "c" or j == "d":
             if j == "a":
