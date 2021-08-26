@@ -3,10 +3,10 @@ import sys
 
 print("Pain interpeter (also 2i1s1a)")
 filename = input("Enter a filename or nothing to skip:")
-if not not filename: 
-    #not not returns the bool faster. if filename is "", notnot returns false, which won't activate.
-    with open(filename, "r") as f:
-        tointer = f.read()
+carr = filename.split(".")
+if carr[len(carr)-1] != "pain":
+    print(f"Error: unsupported file format {carr[len(carr)-1]}")
+    exit()
 a = 0
 b = 0
 c = ""
@@ -15,6 +15,8 @@ rep = []
 iflst = []
 l = []
 evalif = False
+storeif = False
+ifbool = False
 
 def interpert(i, j,h):
 
@@ -26,6 +28,8 @@ def interpert(i, j,h):
     global l
     global iflst
     global evalif
+    global storeif
+    global ifbool
     out = sys.stdout
 
     if i == "+":
@@ -36,7 +40,6 @@ def interpert(i, j,h):
         else:
             a+=1
     if i == "g":
-        checkset = {"a","b","c","d"}
         match j:
             case "c":
                 c = input(">>")
@@ -84,25 +87,38 @@ def interpert(i, j,h):
              interpert(current_i,current_j)
     if i=="?":
         ifbool = not not a
-        evalif = True
-    while evalif:
+        storeif = True
+    while storeif:
         if i == ":" and j !=":":
             iflst.append(i)
+        elif j == ":":
+            iflst.append(i)
+            evalif = True
+            storeif = False
+            break
+    while evalif:
+        if ifbool:
+            for index, i in enumerate(iflst):
+                if (index+1 < len(iflst) and index - 1 >= 0):
+                     current_h = str(iflst[index-1])
+                     current_i = str(i)
+                     current_j = str(iflst[index+1])
+                     interpert(current_i,current_j,current_h)
+                if (index+1 < len(iflst)):
+                    curr_h = ""
+                    curr_i = str(i)
+                    curr_j = str(iflst[index-1])
+                    interpert(current_i,current_j,current_h)
         else:
-            if ifbool:
-                out.write(ifbool)
-                for index, i in enumerate(l):
-                    if (index+1 < len(l) and index - 1 >= 0):
-                         current_i = str(i)
-                         current_j = str(l[index+1])
-                         interpert(current_i,current_j)
-                         print("done step")
-            else:
-                break
+            break
     if i == "r" and h != "@":
         d.reverse()
     if i == "`":
-        out.write(d[len(d)-1])
+        b = ord(d[len(d)-1])
+        d.pop()
+    if i == "~":
+        c = d[len(d)-1]
+        d.pop
     if i == "#":
         d.insert(0,int(j))
     if i == "@":
@@ -145,6 +161,20 @@ def parse():
             current_i = str(i)
             current_j = str(l[index+1])
             interpert(current_i,current_j,curr_h)
+if not not filename: 
+    #not not returns the bool faster. if filename is "", notnot returns false, which won't activate.
+    with open(filename, "r") as f:
+        inter = f.read()
+    a = 0
+    b = 0
+    c = ""
+    d = []
+    rep = []
+    iflst = []
+    l = []
+    l = list(inter)
+    l.insert(0, "!")
+    parse()  
 while True:
     a = 0
     b = 0
@@ -155,7 +185,7 @@ while True:
     print("\n")
     inter = input("Enter code:")
     l = list(inter)
-    l.insert(0,"!")
+    l.insert(0,"!") #! is placeholder to make the first char interperted.
     parse()  
     
     

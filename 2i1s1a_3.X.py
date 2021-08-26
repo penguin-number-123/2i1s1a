@@ -3,10 +3,9 @@ import sys
 
 print("Pain interpeter (also 2i1s1a)")
 filename = input("Enter a filename or nothing to skip:")
-if not not filename: 
-    #not not returns the bool faster. if filename is "", notnot returns false, which won't activate.
-    with open(filename, "r") as f:
-        tointer = f.read()
+carr = filename.split(".")
+if carr[len(carr)-1] != "pain":
+    print(f"Error: unsupported file format {carr[len(carr)-1]}")
 a = 0
 b = 0
 c = ""
@@ -141,6 +140,20 @@ def parse():
             current_i = str(i)
             current_j = str(l[index+1])
             interpert(current_i,current_j,curr_h)
+if not not filename: 
+    #not not returns the bool faster. if filename is "", notnot returns false, which won't activate.
+    with open(filename, "r") as f:
+        inter = f.read()
+    a = 0
+    b = 0
+    c = ""
+    d = []
+    rep = []
+    iflst = []
+    l = []
+    l = list(inter)
+    l.insert(0, "!")
+    parse()  
 while True:
     a = 0
     b = 0
